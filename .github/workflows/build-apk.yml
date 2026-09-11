@@ -44,14 +44,14 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
-      # ============================================================
+           # ============================================================
       # 7. Setup Java
       # ============================================================
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 21
 
       # ============================================================
       # 8. Give Gradle execution permission
