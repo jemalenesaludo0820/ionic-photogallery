@@ -26,32 +26,32 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # 5. Build the Vue application
+      # 5. Build Vue app
       - name: Build Vue app
         run: npm run build
 
-      # 6. Sync the web project with Capacitor Android
+      # 6. Sync Capacitor
       - name: Sync Capacitor
         run: npx cap sync android
 
-      # 7. Install Java for Android build
+      # 7. Setup Java
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
 
-      # 8. Give permission to run Gradle
+      # 8. Give permission to gradlew
       - name: Give permission to gradlew
         run: chmod +x android/gradlew
 
-      # 9. Build the Android APK
+      # 9. Build APK
       - name: Build APK
         run: |
           cd android
           ./gradlew assembleDebug
 
-      # 10. Upload the generated APK as a GitHub Actions artifact
+      # 10. Upload APK
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
