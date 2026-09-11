@@ -41,9 +41,18 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      # 8. Give permission to gradlew
-      - name: Give permission to gradlew
-        run: chmod +x android/gradlew
+      # ============================================================
+# 8. Give Gradle execution permission
+# ============================================================
+- name: Make Gradle executable
+  run: chmod +x android/gradlew
+
+# ============================================================
+# 9. Check Gradle environment
+# ============================================================
+- name: Check Gradle version
+  working-directory: android
+  run: ./gradlew --version
 
       # 9. Build APK
       - name: Build APK
@@ -51,11 +60,15 @@ jobs:
           cd android
           ./gradlew assembleDebug
 
+      -name: ionic-photogallery.apk
+      run: |
+        cd android/app/build/outputs/apk/debug.apk IonicPhotogallery.apk
+       
       # 10. Upload APK
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: IonicPhotogallery-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: IonicPhotogallery.apk
           if-no-files-found: error
           retention-days: 30
